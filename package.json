@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/primathontech/primathon-ai-code-reviewer.git"
+    "url": "git+https://github.com/junglebet/ai-code-review.git"
   },
   "keywords": [
     "actions",
