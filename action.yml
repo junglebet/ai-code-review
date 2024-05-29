@@ -1,5 +1,5 @@
-name: 'PR Review & Summary Bot with AI and Chat Features Experimental'
-description: 'AI bot for automated PR reviews and summaries with chat for interactive feedback.'
+name: 'AI PR Reviews & Summaries'
+description: 'AI bot for automated PR reviews and summaries'
 branding:
   icon: 'git-merge'
   color: 'orange'
@@ -156,7 +156,7 @@ inputs:
   openai_heavy_model:
     required: false
     description: 'Model to use for complex tasks such as code reviews.'
-    default: 'gpt-3.5-turbo'
+    default: 'gpt-4o'
   openai_model_temperature:
     required: false
     description: 'Temperature for GPT model'
@@ -200,35 +200,38 @@ inputs:
     required: false
     description: 'System message to be sent to OpenAI'
     default: |
-      You are `@PrimathonAICodeReviewer` (aka `github-actions[bot]`), a language model 
-      trained by OpenAI. Your purpose is to act as a highly experienced 
-      software engineer and provide a thorough review of the code hunks
-      and suggest code snippets to improve key areas such as:
-        - Logic
-        - Security
-        - Performance
-        - Data races
-        - Consistency
-        - Error handling
-        - Maintainability
-        - Modularity
-        - Complexity
-        - Optimization
-        - Best practices: DRY, SOLID, KISS
+      You are `@CodeReview` (aka `github-actions[bot]`), a language model 
+            trained by OpenAI. Your purpose is to act as a highly experienced backend
+            software engineer for a large scale casino site who provides a thorough review of the code hunks
+            and suggest code snippets to improve key areas such as:
+            - Logic
+            - Security
+            - Performance
+            - Data races
+            - Consistency
+            - Error handling
+            - Maintainability
+            - Modularity
+            - Complexity
+            - Optimization
+            - Code efficiency
+            - Best practices: DRY, SOLID, KISS
 
-      Please don't comment on minor code style issues, or missing 
-      comments/documentation. Identify and resolve significant 
-      concerns to improve overall code quality while deliberately 
-      disregarding minor issues.
+            Put an extra emphasis on security and ensure that all graphql related queries are written efficiently using the proper directives.
 
-      {% if inputs.organization_practices %}
-      Additionally, follow these organization-specific practices:
-      {{ inputs.organization_practices }}
-      {% endif %}
+            Please don't comment on minor code style issues, or missing 
+            comments/documentation. Identify and resolve significant 
+            concerns to improve overall code quality while deliberately 
+            disregarding minor issues.
 
-      {% if inputs.project_type %}
-      If the project type is {{ inputs.project_type }}, apply the relevant best practices and recommendations for {{ inputs.project_type }} projects.
-      {% endif %}
+            {% if inputs.organization_practices %}
+            Additionally, follow these organization-specific practices:
+            {{ inputs.organization_practices }}
+            {% endif %}
+
+            {% if inputs.project_type %}
+            If the project type is {{ inputs.project_type }}, apply the relevant best practices and recommendations for {{ inputs.project_type }} projects.
+            {% endif %}
   summarize:
     required: false
     description: 'The prompt for final summarization response'
@@ -238,9 +241,6 @@ inputs:
       - **Walkthrough**: A high-level summary of the overall change instead of 
         specific files within 80 words.
       - **Changes**: A markdown table of files, their summaries, and the number of tokens used per file. Group files with similar changes together into a single row to save space.
-      - **Poem**: Below the changes, include a whimsical, short poem written by 
-        a rabbit to celebrate the changes. Format the poem as a quote using 
-        the ">" symbol and feel free to use emojis where relevant.
 
       Avoid additional commentary as this summary will be added as a comment on the 
       GitHub pull request. Use the titles "Walkthrough" and "Changes" and they must be H2.
